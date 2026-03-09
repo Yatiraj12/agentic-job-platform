@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JSO Agent - AI Job Search</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="main-container">
+
+    <div class="hero">
+
+        <h1>🚀 JSO Agent</h1>
+        <p>AI Powered Job Search Assistant</p>
+
+        <div class="search-container">
+
+            <input
+                id="jobQuery"
+                type="text"
+                placeholder="Search AI jobs, internships, ML roles..."
+            >
+
+            <button onclick="searchJobs()">
+                Search
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div id="loading" class="loading hidden">
+        🔎 AI agent is analyzing your job search...
+    </div>
+
+
+    <div id="results" class="results hidden">
+
+
+        <div class="card">
+
+            <h3>User Intent</h3>
+            <p id="intent"></p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Skills Detected</h3>
+            <p id="skills"></p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Recommended Search Queries</h3>
+            <ul id="queries"></ul>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Best Platforms</h3>
+            <ul id="platforms"></ul>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>

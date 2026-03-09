@@ -1,0 +1,22 @@
+fastapi
+uvicorn[standard]
+jinja2
+python-dotenv
+pydantic
+
+# LLM
+groq
+
+# LangChain ecosystem
+langchain
+langchain-core
+langchain-community
+
+# Agent workflow
+langgraph
+
+# HTTP requests
+httpx
+
+# Optional utility
+tqdm
