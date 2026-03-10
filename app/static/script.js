@@ -18,7 +18,8 @@ headers:{
 },
 
 body:JSON.stringify({
-query:query
+query:query,
+session_id:"demo_user"
 })
 
 })

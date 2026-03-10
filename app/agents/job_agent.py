@@ -7,6 +7,7 @@ import json
 import re
 from groq import Groq
 from app.services.prompt_templates import JOB_AGENT_PROMPT
+from app.services.memory import memory_store
 
 
 class JobAgent:
@@ -15,7 +16,7 @@ class JobAgent:
         self.client = Groq(api_key=os.getenv("GROQ_API_KEY"))
         self.model = "llama-3.3-70b-versatile"
 
-    def analyze_job_request(self, user_query: str, search_queries: list):
+    def analyze_job_request(self, user_query: str, search_queries: list, session_id: str = "default"):
 
         formatted_queries = "\n".join(search_queries)
 
@@ -24,17 +25,26 @@ class JobAgent:
             queries=formatted_queries
         )
 
+        # Retrieve previous conversation history
+        history = memory_store.get_history(session_id)
+
+        messages = history + [
+            {"role": "system", "content": "You are a helpful AI job assistant that always returns valid JSON."},
+            {"role": "user", "content": prompt}
+        ]
+
         response = self.client.chat.completions.create(
             model=self.model,
-            messages=[
-                {"role": "system", "content": "You are a helpful AI job assistant that always returns valid JSON."},
-                {"role": "user", "content": prompt}
-            ],
+            messages=messages,
             temperature=0.3,
             max_tokens=200
         )
 
         result = response.choices[0].message.content
+
+        # Store conversation in memory
+        memory_store.add_message(session_id, "user", user_query)
+        memory_store.add_message(session_id, "assistant", result)
 
         parsed = {}
 

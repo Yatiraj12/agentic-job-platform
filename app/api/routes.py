@@ -15,6 +15,7 @@ workflow = JobSearchWorkflow()
 
 class JobRequest(BaseModel):
     query: str
+    session_id: str = "default"
 
 
 @router.post("/search-jobs")
